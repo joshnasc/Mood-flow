@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Mental Health Tracker</title>
+
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<!-- LOGIN/SIGNUP PAGE -->
+
+<div id="loginPage" class="loginPage">
+
+<div class="loginCard">
+
+<h1>MindTrack</h1>
+
+<div id="loginForm">
+<h2>Login</h2>
+<input id="loginNameInput" placeholder="Enter your name">
+<input id="loginPasswordInput" type="password" placeholder="Password">
+<button onclick="login()">Login</button>
+<p>Don't have an account? <a href="#" onclick="showSignUp()">Sign Up</a></p>
+</div>
+
+<div id="signupForm" style="display:none;">
+<h2>Create Account</h2>
+<input id="signupNameInput" placeholder="Enter your name">
+<input id="signupPasswordInput" type="password" placeholder="Password">
+<select id="ageInput">
+<option value="">Select Age Range</option>
+<option>Under 15</option>
+<option>15-18</option>
+<option>18-25</option>
+<option>25+</option>
+</select>
+<button onclick="signUp()">Create Account</button>
+<p>Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- APP -->
+
+<div id="app" style="display:none">
+
+<div class="container">
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<h2 class="logo">MindTrack</h2>
+
+<button onclick="showPage('home')">Home</button>
+<button onclick="showPage('journal')">Journal</button>
+<button onclick="showPage('calendar')">Calendar</button>
+<button onclick="showPage('stats')">Mood Stats</button>
+<button onclick="showPage('quotes')">Quotes</button>
+<button onclick="showPage('mood')">Mood Tracker</button>
+<button onclick="showPage('breathing')">Breathing</button>
+<button onclick="showPage('focus')">Focus Areas</button>
+
+<button onclick="toggleDarkMode()">Dark Mode</button>
+<button onclick="logout()">Logout</button>
+
+</div>
+
+
+<!-- MAIN CONTENT -->
+
+<div class="main">
+
+<!-- HOME -->
+
+<div id="home" class="page">
+
+<div class="welcomeBanner">
+<h1>Welcome back, <span id="username"></span>!</h1>
+<p id="appQuote"></p>
+</div>
+
+<div class="quoteBox">
+<h2 id="quote"></h2>
+<button onclick="newQuote()">New Quote</button>
+</div>
+
+<div class="startTrackingSection">
+<h2>Ready to check in?</h2>
+<button class="startTrackingBtn" onclick="showPage('mood')">Start Tracking</button>
+</div>
+
+</div>
+
+
+<!-- FOCUS AREAS PAGE (NEW) -->
+
+<div id="focus" class="page" style="display:none">
+
+<h1>What would you like to focus on?</h1>
+
+<div class="focusGrid">
+
+<div class="focusCard" onclick="selectFocus('emotions')">
+<div class="focusIcon">😊</div>
+<h3>Emotions</h3>
+<p>Track your emotional wellbeing</p>
+</div>
+
+<div class="focusCard" onclick="selectFocus('sleep')">
+<div class="focusIcon">😴</div>
+<h3>Sleep</h3>
+<p>Monitor your sleep patterns</p>
+</div>
+
+<div class="focusCard" onclick="selectFocus('betterme')">
+<div class="focusIcon">🌟</div>
+<h3>Better Me</h3>
+<p>Personal growth journey</p>
+</div>
+
+<div class="focusCard" onclick="selectFocus('health')">
+<div class="focusIcon">💪</div>
+<h3>Health</h3>
+<p>Physical wellness tracking</p>
+</div>
+
+<div class="focusCard" onclick="selectFocus('hobbies')">
+<div class="focusIcon">🎨</div>
+<h3>Hobbies</h3>
+<p>Activities you enjoy</p>
+</div>
+
+</div>
+
+<div id="selectedFocus" class="selectedFocus"></div>
+
+</div>
+
+
+<!-- JOURNAL -->
+
+<div id="journal" class="page" style="display:none">
+
+<h1>Journal</h1>
+
+<textarea id="journalText" placeholder="Write how you feel..."></textarea>
+
+<button onclick="saveJournal()">Save Entry</button>
+
+<div id="journalEntries"></div>
+
+</div>
+
+
+<!-- CALENDAR -->
+
+<div id="calendar" class="page" style="display:none">
+
+<h1>Mood Calendar</h1>
+
+<div id="calendarGrid"></div>
+
+</div>
+
+
+<!-- STATS -->
+
+<div id="stats" class="page" style="display:none">
+
+<h1>Mood Over Time</h1>
+
+<canvas id="moodChart"></canvas>
+
+</div>
+
+
+<!-- QUOTES -->
+
+<div id="quotes" class="page" style="display:none">
+
+<h1>Quotes Generator</h1>
+
+<div class="quoteBox">
+
+<h2 id="quote2"></h2>
+
+<button onclick="newQuote()">Generate Quote</button>
+
+</div>
+
+</div>
+
+
+<!-- MOOD TRACKER (UPDATED) -->
+
+<div id="mood" class="page" style="display:none">
+
+<h1>How are you feeling today?</h1>
+
+<div class="emotionGrid">
+<div class="emotionBtn" onclick="setEmotion('happy')">😊 Happy</div>
+<div class="emotionBtn" onclick="setEmotion('excited')">🤩 Excited</div>
+<div class="emotionBtn" onclick="setEmotion('relaxed')">😌 Relaxed</div>
+<div class="emotionBtn" onclick="setEmotion('tired')">😴 Tired</div>
+<div class="emotionBtn" onclick="setEmotion('unsure')">🤔 Unsure</div>
+<div class="emotionBtn" onclick="setEmotion('bored')">🥱 Bored</div>
+<div class="emotionBtn" onclick="setEmotion('anxious')">😰 Anxious</div>
+<div class="emotionBtn" onclick="setEmotion('angry')">😠 Angry</div>
+<div class="emotionBtn" onclick="setEmotion('stressed')">😫 Stressed</div>
+<div class="emotionBtn" onclick="setEmotion('sad')">😢 Sad</div>
+</div>
+
+<div class="sleepTracker">
+<h2>Sleep Hours</h2>
+<input type="range" id="sleepHours" min="0" max="12" step="0.5" value="7" oninput="updateSleepValue(this.value)">
+<span id="sleepValue">7 hours</span>
+</div>
+
+<button class="saveMoodBtn" onclick="saveMoodData()">Save Today's Mood</button>
+<h2 id="todayMood"></h2>
+<div id="todaySleep"></div>
+
+</div>
+
+
+<!-- BREATHING (UPDATED) -->
+
+<div id="breathing" class="page" style="display:none">
+
+<h1>Breathing Exercise</h1>
+
+<div class="breathingContainer">
+<div class="breathingCircle" id="breathingCircle"></div>
+</div>
+
+<h2 id="breathText">Press Start to Begin</h2>
+
+<button onclick="startBreathing()">Start Breathing Exercise</button>
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
